@@ -45,14 +45,14 @@ describe("CountOfQuantity", () => {
         const onDecrease = () => { quantity -= 1; };
 
         render(
-            <MantineProvider theme={{ colorScheme: 'light' }}>
+            <MantineProvider defaultColorScheme="light">
                 <CountOfQuantity quantity={quantity} onIncrease={onIncrease} onDecrease={onDecrease} />
             </MantineProvider>
         );
 
         const minusBtn = screen.getByRole('button', { name: /decrease/i });
         const plusBtn = screen.getByRole('button', { name: /increase/i });
-        const qtyText = screen.getByText("0");
+        screen.getByText("0");
 
         fireEvent.click(plusBtn);
         expect(quantity).toBe(1);
