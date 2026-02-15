@@ -1,5 +1,4 @@
 import {Group, Image, Text, Stack, Box, Divider} from "@mantine/core";
-import {UseCartStore} from "../../../store/cartStore.ts";
 import {CountOfQuantity} from "../../../Buttons/CountOfQuantity/CountOfQuantity.tsx";
 import {useDispatch} from "react-redux";
 import type { AppDispatch } from "../../../store/store";
