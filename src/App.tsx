@@ -1,39 +1,23 @@
 import './App.css'
-import {useEffect, useState} from 'react'
-import ky from "ky";
 import {Group, Text, Box, AppShell, Paper} from "@mantine/core";
 import {CardOfVegetableSkeleton} from "./Components/Body/Card/CardOfVegetable/CardOfVegetableSkeleton.tsx";
 import {CardOfVegetable} from "./Components/Body/Card/CardOfVegetable/CardOfVegetable.tsx";
 import {Header} from "./Components/Header/Header.tsx";
-
-
-type Vegetable = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    category: string;
-}
+import {useDispatch, useSelector} from "react-redux";
+import type { RootState, AppDispatch } from './Components/store/store.ts'
+import {useEffect} from "react";
+import {fetchVegetables} from "./Components/store/vegetableSlice.ts";
 
 function App() {
-    const [vegetables, setVegetables] = useState<Vegetable[]>([])
-    const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch<AppDispatch>()
+    const vegetables = useSelector((state: RootState) => state.vegetables.vegetables)
+    const loading = useSelector((state: RootState) => state.vegetables.loading)
     useEffect(() => {
-        async function getVegetables() {
-            setLoading(true)
-            const data = await ky
-                .get('https://res.cloudinary.com/sivadass/raw/upload/v1535817394/json/products.json')
-                .json() as Vegetable[];
-            setVegetables(data)
-            setLoading(false)
-        }
-
-        getVegetables()
-    }, [])
+        dispatch(fetchVegetables())
+    }, [dispatch])
     return <>
         <AppShell
             header={{height: 60}}
-
         >
             {/*--------------------------------------*/}
             {/*Шапка*/}

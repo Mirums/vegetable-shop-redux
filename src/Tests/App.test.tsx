@@ -4,7 +4,7 @@ import { CountOfQuantity } from '../Components/Buttons/CountOfQuantity/CountOfQu
 import userEvent from "@testing-library/user-event";
 import { MantineProvider } from "@mantine/core";
 import App from "../App";
-import { UseCartStore } from "../Components/Store/cartStore";
+import { UseCartStore } from "../Components/store/cartStore";
 
 Object.defineProperty(window, "matchMedia", {
     writable: true,

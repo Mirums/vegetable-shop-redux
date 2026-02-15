@@ -1,11 +1,12 @@
 import {Divider, Group, Stack, Text} from "@mantine/core";
 import {EmptyCard} from "./CartState/EmptyCard.tsx";
 import {FilthyCard} from "./CartState/FilthyCard.tsx";
-import {UseCartStore} from "../../Store/cartStore.ts";
+import {useSelector} from "react-redux";
+import type {RootState} from "../../store/store.ts";
 
 
 export function Cart() {
-    const cart = UseCartStore(state => state.cart)
+    const cart = useSelector((state: RootState) => state.vegetables.cart)
     const totalPrice = cart.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0

@@ -1,6 +1,9 @@
 import {Group, Image, Text, Stack, Box, Divider} from "@mantine/core";
-import {UseCartStore} from "../../../Store/cartStore.ts";
+import {UseCartStore} from "../../../store/cartStore.ts";
 import {CountOfQuantity} from "../../../Buttons/CountOfQuantity/CountOfQuantity.tsx";
+import {useDispatch} from "react-redux";
+import type { AppDispatch } from "../../../store/store";
+import {decreaseQuantity, increaseQuantity} from "../../../store/vegetableSlice.ts";
 
 
 type Props = {
@@ -14,8 +17,7 @@ type Props = {
 }
 
 export function FilthyCard({title, weight, price, image, quantity, withDivider, id}: Props) {
-    const increase = UseCartStore((state) => state.increaseQuantity)
-    const decrease = UseCartStore((state) => state.decreaseQuantity)
+    const dispatch = useDispatch<AppDispatch>();
     const totalPriceOfVegetable = price * quantity;
     return <>
         <Group w={396} h={80}>
@@ -29,8 +31,10 @@ export function FilthyCard({title, weight, price, image, quantity, withDivider, 
                     <Text fz={20} fw={600}>$ {totalPriceOfVegetable}</Text>
                 </Stack>
                 <Box mt={32}>
-                    <CountOfQuantity quantity={quantity} onIncrease={() => increase(id)}
-                                     onDecrease={() => decrease(id)}/>
+                    <CountOfQuantity
+                        quantity={quantity}
+                        onIncrease={() => dispatch(increaseQuantity(id))}
+                        onDecrease={() => dispatch(decreaseQuantity(id))}/>
                 </Box>
                 {withDivider && <Divider w={'100%'}/>}
             </Group>

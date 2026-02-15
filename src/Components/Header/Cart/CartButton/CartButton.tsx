@@ -1,13 +1,14 @@
 import {ActionIcon, Center, Paper, Popover, Text} from "@mantine/core";
 import {IconShoppingCart} from "@tabler/icons-react";
 import {useState} from "react";
-import {UseCartStore} from "../../../Store/cartStore.ts";
 import {Cart} from "../Cart.tsx";
+import {useSelector} from "react-redux";
+import type {RootState} from "../../../store/store.ts";
 
 
 export function CartButton() {
     const [openCart, setOpenCart] = useState(false);
-    const cart = UseCartStore(state => state.cart)
+    const cart = useSelector((state: RootState) => state.vegetables.cart)
 
     function openOrCloseCart() {
         if (openCart) {

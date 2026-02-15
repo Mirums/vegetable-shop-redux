@@ -16,7 +16,6 @@ type CartStore = {
     increaseQuantity: (id: number) => void;
     decreaseQuantity: (id: number) => void;
 };
-
 export const UseCartStore = create<CartStore>((set) => ({
     cart: [],
 

@@ -2,8 +2,10 @@ import {InfoAboutVegetable} from "../InfoAboutVegetable/InfoAboutVegetable.tsx";
 import {CountOfQuantity} from "../../../Buttons/CountOfQuantity/CountOfQuantity.tsx";
 import {AddToCart} from "../AddToCart/AddToCart.tsx";
 import {Card, Group, Image} from "@mantine/core";
-import {UseCartStore} from '../../../Store/cartStore.ts'
 import {useState} from 'react'
+import {useDispatch} from "react-redux";
+import type {AppDispatch} from "../../../store/store.ts";
+import {addToCart} from "../../../store/vegetableSlice.ts";
 
 type CardOfVegetableProps = {
     id: number;
@@ -15,21 +17,20 @@ type CardOfVegetableProps = {
 export function CardOfVegetable(props: CardOfVegetableProps) {
     const { name, price, image, id } = props;
     const [quantity, setQuantity] = useState(1);
-
-    const addToCart = UseCartStore(state => state.addToCart);
+    const dispatch = useDispatch<AppDispatch>()
 
     const title = name.split('-')[0];
     const weight = name.split('-')[1];
 
     const handleAddToCart = () => {
-        addToCart({
-            id,
+        dispatch(addToCart(
+            {id,
             title,
             weight,
             price,
             image,
-            quantity,
-        });
+            quantity,}
+        ))
     };
 
     return (
